@@ -233,6 +233,11 @@
         }
 
         function duration(v) {
+            v = parseInt(v);
+            if (isNaN(v) || v < 0) {
+                return "??";
+            }
+
             if (v < 60) { // v is seconds
                 return v + " sec";
             }
@@ -275,11 +280,14 @@
                     return;
                 }
 
+                // Filter out null/undefined items just in case the API is having a bad day.
+                var checks = doc.checks.filter(function(item) { return !!item; });
+
                 var tag = "TAG_" + node.dataset.readonlyKey.substr(0, 6);
 
                 // ORIGINAL: Crashed sorting if a check had no name.
                 // FIX: Handle null names gracefully.
-                var sorted = doc.checks.sort(function(a, b) {
+                var sorted = checks.sort(function(a, b) {
                     return (a.name || "").localeCompare(b.name || "")
                 });
 
