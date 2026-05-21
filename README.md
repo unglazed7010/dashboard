@@ -68,6 +68,16 @@ Here are the things that the read-only API keys *cannot* do:
 in your project
 
 
+## Recent Improvements (Honesty & Robustness)
+
+The dashboard has been patched to stop lying and crashing:
+
+*   **API Honesty**: If the API fails (401, 429, 500), the dashboard now actually tells you instead of staying silent and stale.
+*   **Crash Prevention**: Fixed a critical bug where an unnamed check would crash the entire update loop.
+*   **Data Integrity**: Zero-second durations now actually display correctly instead of being hidden by sloppy falsy checks.
+*   **Time Physics**: Clamped "time ago" to 0 so the dashboard stops claiming events happened in the future.
+
+
 ## Docker image
 
 There is an official [Healthchecks.io Status Dashboard Docker image](https://hub.docker.com/r/healthchecks/dashboard)
